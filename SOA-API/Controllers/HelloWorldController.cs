@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Common.Base;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,7 +11,8 @@ namespace SOA_API.Controllers
     public class HelloWorldController : ApiControllerBase
     {
         [HttpGet]
-        public ApiResponse Get()
+        [Authorize]
+        public IActionResult Get()
         {
             var data = "Hello world";
             return APIResponse(data);
