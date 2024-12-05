@@ -6,6 +6,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using SOA_API.Controllers;
+using SOA_API.Services;
 using System.Net;
 using System.Text;
 
@@ -20,6 +21,9 @@ namespace SOA_API
             // Add services to the container.
 
             builder.Services.AddControllers();
+            builder.Services.AddAutoMapper(typeof(MappingConfig));
+            builder.Services.AddScoped<IProductService, ProductService>();
+
             builder.Services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
