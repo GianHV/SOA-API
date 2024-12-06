@@ -1,17 +1,14 @@
-﻿
-using Common.Base;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.DataProtection.KeyManagement;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
-using SOA_API.Controllers;
-using SOA_API.Middleware;
-using SOA_API.Services;
-using System.Net;
 using System.Text;
+using Resource2.Middleware;
+using Resource2.Services.External;
+using Resource2.Services.Internal;
+using Common.Base;
+using System.Net;
+using Microsoft.OpenApi.Models;
 
-namespace SOA_API
+namespace Resource2
 {
     public class Program
     {
@@ -21,57 +18,54 @@ namespace SOA_API
 
             // Add services to the container.
 
-            builder.Services.AddControllers(u => u.Filters.Add(new GlobalExceptionHandler()));
-            builder.Services.AddAutoMapper(typeof(MappingConfig));
+            builder.Services.AddControllers();
+
+            builder.Services.AddHttpClient<IProductService, ProductService>();
+            builder.Services.AddScoped<IOrderService, OrderService>();
             builder.Services.AddScoped<IProductService, ProductService>();
+            builder.Services.AddScoped<IOrderItemService, OrderItemService>();
 
             builder.Services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             })
-                 .AddJwtBearer(options =>
-                 {
-                     options.RequireHttpsMetadata = false;
-                     options.SaveToken = true;
-                     options.TokenValidationParameters = new TokenValidationParameters
-                     {
-                         ValidateIssuerSigningKey = true,
-                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(builder.Configuration["Jwt:key"])),
-                         ValidateIssuer = false,
-                         ValidIssuer = builder.Configuration["Jwt:Issuer"],
-                         ValidateAudience = false,
-                         RequireExpirationTime = true,
-                         ClockSkew = TimeSpan.Zero,
-                     };
-                     options.Events = new JwtBearerEvents
-                     {
-                         OnChallenge = async context =>
-                         {
-                             context.HandleResponse();
+                .AddJwtBearer(options =>
+                {
+                    options.RequireHttpsMetadata = false;
+                    options.SaveToken = true;
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(builder.Configuration["Jwt:key"])),
+                        ValidateIssuer = false,
+                        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+                        ValidateAudience = false,
+                        RequireExpirationTime = true,
+                        ClockSkew = TimeSpan.Zero,
+                    };
+                    options.Events = new JwtBearerEvents
+                    {
+                        OnChallenge = async context =>
+                        {
+                            context.HandleResponse();
 
-                             var response = new ApiResponse
-                             {
-                                 StatusCode = HttpStatusCode.Unauthorized,
-                                 IsSuccess = false,
-                                 ErrorMessages = new List<string> { "You must be authenticated to access this resource" }
-                             };
+                            var response = new ApiResponse
+                            {
+                                StatusCode = HttpStatusCode.Unauthorized,
+                                IsSuccess = false,
+                                ErrorMessages = new List<string> { "You must be authenticated to access this resource" }
+                            };
 
-                             var jsonResponse = System.Text.Json.JsonSerializer.Serialize(response);
+                            var jsonResponse = System.Text.Json.JsonSerializer.Serialize(response);
 
-                             context.Response.StatusCode = StatusCodes.Status401Unauthorized;
-                             context.Response.ContentType = "application/json";
+                            context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                            context.Response.ContentType = "application/json";
 
-                             await context.Response.WriteAsync(jsonResponse);
-                         }
-                     };
-                 });
-
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
-
-
+                            await context.Response.WriteAsync(jsonResponse);
+                        }
+                    };
+                });
 
             builder.Services.AddSwaggerGen(options =>
             {
@@ -106,6 +100,10 @@ namespace SOA_API
                 });
             });
 
+            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -117,15 +115,12 @@ namespace SOA_API
 
             app.UseHttpsRedirection();
 
-            app.UseAuthentication();
             app.UseAuthorization();
-
+            app.UseMiddleware<TokenMiddleware>();
 
             app.MapControllers();
 
             app.Run();
         }
-
-
     }
 }

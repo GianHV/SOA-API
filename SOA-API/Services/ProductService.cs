@@ -2,6 +2,7 @@
 using System.Data.SqlClient;
 using Dapper;
 using Microsoft.AspNetCore.DataProtection.KeyManagement;
+using SOA_API.Middleware;
 using SOA_API.Models;
 
 namespace SOA_API.Services
@@ -64,7 +65,15 @@ namespace SOA_API.Services
                 parameters.Add("@price", product.Price);
                 parameters.Add("@quantity", product.Quantity);
 
-                var result = conn.Execute("sp_edit_product", parameters, null, commandType: CommandType.StoredProcedure);
+                try
+                {
+                    var result = conn.Execute("sp_edit_product", parameters, null, commandType: CommandType.StoredProcedure);
+
+                }
+                catch (SqlException) 
+                {
+                    throw;
+                }
             }
         }
 
