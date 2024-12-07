@@ -13,8 +13,8 @@ Hệ thống bao gồm 2 dự án chính:
      - Đăng nhập bằng email và mật khẩu.
      - Tạo và trả về **Bearer Token** để sử dụng trong các API khác.
 
-2. **Resource**:  
-   - Mục đích: Quản lý tài nguyên (sản phẩm).  
+2. **Resource2**:  
+   - Mục đích: Quản lý tài nguyên (Quản lý đơn hàng và Quản lý mặt hàng trong đơn hàng).  
    - Chức năng chính:
      - Xác thực **Bearer Token**: Mọi yêu cầu phải kèm **Bearer Token**, nếu không sẽ trả về **401 Unauthorized**
      - Cung cấp các API để thêm, sửa, xóa, và truy xuất thông tin tài nguyên.
@@ -32,7 +32,7 @@ Hệ thống bao gồm 2 dự án chính:
 ### Bước 2: Cập nhật chuỗi kết nối
 1. Mở file `appsettings.json` trong hai dự án:
    - **AuthorizationServer**
-   - **Resource**
+   - **Resource2**
 2. Tìm mục `"ConnectionStrings"` và chỉnh sửa chuỗi kết nối thành thông tin server SQL trên máy tính của bạn.  
    Ví dụ:
    ```json
@@ -44,7 +44,7 @@ Hệ thống bao gồm 2 dự án chính:
 2. Đăng nhập bằng **email** và **password** để lấy **JWT token**.
 
 ### Bước 4: Sử dụng token để xác thực
-1. Chạy **Resource**
+1. Chạy **Resource2**
 2. Thêm **Bearer Token** vào mục `Authorize`.
    ```text
    Bearer <token>
