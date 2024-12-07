@@ -14,11 +14,10 @@ Hệ thống bao gồm 2 dự án chính:
      - Tạo và trả về **Bearer Token** để sử dụng trong các API khác.
 
 2. **Resource**:  
-   - Mục đích: Quản lý tài nguyên (sản phẩm).  
+   - Mục đích: Trả về thông báo "Hello World" để kiểm tra xác thực.   
    - Chức năng chính:
      - Xác thực **Bearer Token**: Mọi yêu cầu phải kèm **Bearer Token**, nếu không sẽ trả về **401 Unauthorized**
-     - Cung cấp các API để thêm, sửa, xóa, và truy xuất thông tin tài nguyên.
-
+     - Trả về thông báo "Hello World" sau khi xác thực thành công.
 **Quy trình hoạt động tổng quan**:  
 - Người dùng đăng nhập vào `AuthorizationServer` để nhận **JWT Token**.  
 - Token này được gửi kèm trong các yêu cầu đến `Resource` để xác thực và thực hiện các thao tác API.
