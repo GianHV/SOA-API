@@ -1,4 +1,4 @@
-﻿namespace Resource2.Models
+﻿namespace Resource3.Models
 {
     public class Order
     {

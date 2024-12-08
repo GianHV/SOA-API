@@ -8,7 +8,7 @@ using SOA_API.Services;
 
 namespace SOA_API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/products")]
     [Authorize]
     [ApiController]
     public class ProductController : ApiControllerBase

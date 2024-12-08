@@ -75,8 +75,10 @@ namespace Resource2.Services.Internal
                 var parameters = new DynamicParameters();
                 parameters.Add("@id", id);
 
-                var result = conn.Query<Order>("sp_get_order_by_id", parameters, commandType: CommandType.StoredProcedure);
-                return result.FirstOrDefault();
+                var result = conn.QueryMultiple("sp_get_order_by_id", parameters, commandType: CommandType.StoredProcedure);
+                var order = result.ReadSingleOrDefault<Order>();
+                order.Items = result.Read<OrderItem>().AsList();
+                return order;
             }
         }
 

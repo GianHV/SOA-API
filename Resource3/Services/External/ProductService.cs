@@ -1,9 +1,7 @@
-﻿using System.Net.Http;
+﻿
 using Common.Base;
-using Newtonsoft.Json.Linq;
-using Resource2.Models;
 
-namespace Resource2.Services.External
+namespace Resource3.Services.External
 {
     public class ProductService : HttpService,IProductService
     {
@@ -17,23 +15,12 @@ namespace Resource2.Services.External
             _clientFactory = clientFactory;
             productUrl = configuration.GetValue<string>("ServiceUrls:ProductAPI");
         }
-        public Task<T> GetProductById<T>(int productId, string token)
+        public Task<T> GetDetail<T>(int id, string token)
         {
             return SendAsync<T>(new APIRequest()
             {
-                Url = productUrl + $"/api/products/{productId}",
+                Url = productUrl + $"/api/products/{id}",
                 Token = token
-            });
-        }
-
-        public Task<T> UpdateProduct<T>(ProductDTO product, string token)
-        {
-            return SendAsync<T>(new APIRequest()
-            {
-                ApiType = ApiType.PUT,
-                Data = product,
-                Url = productUrl + $"/api/products",
-                Token = token,
             });
         }
     }
