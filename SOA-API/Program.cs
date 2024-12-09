@@ -116,6 +116,12 @@ namespace SOA_API
             }
 
             app.UseHttpsRedirection();
+            app.UseCors(options =>
+            {
+                options.AllowAnyHeader();
+                options.AllowAnyOrigin();
+                options.AllowAnyMethod();
+            });
 
             app.UseAuthentication();
             app.UseAuthorization();

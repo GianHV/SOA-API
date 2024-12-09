@@ -114,6 +114,12 @@ namespace Resource3
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+            app.UseCors(options =>
+            {
+                options.AllowAnyHeader();
+                options.AllowAnyOrigin();
+                options.AllowAnyMethod();
+            });
 
             app.UseHttpsRedirection();
 
