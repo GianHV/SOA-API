@@ -6,18 +6,23 @@
 - **.NET Core SDK**: .Net 8 .
 ## Tổng quan về hệ thống
 
-Hệ thống bao gồm 2 dự án chính:  
+Hệ thống bao gồm 3 dự án chính:  
 1. **AuthorizationServer**:  
    - Mục đích: Cấp phát **JWT Token** để xác thực và ủy quyền người dùng.  
    - Chức năng chính:
      - Đăng nhập bằng email và mật khẩu.
      - Tạo và trả về **Bearer Token** để sử dụng trong các API khác.
 
-2. **Resource2**:  
-   - Mục đích: Quản lý tài nguyên (Quản lý đơn hàng).  
+2. **Resource1**:  
+   - Mục đích: Quản lý sản phẩm.  
    - Chức năng chính:
      - Xác thực **Bearer Token**: Mọi yêu cầu phải kèm **Bearer Token**, nếu không sẽ trả về **401 Unauthorized**
-     - Cung cấp các API để thêm, sửa, xóa, và truy xuất thông tin tài nguyên.
+     - Cung cấp các API để thêm, sửa, xóa, và truy xuất thông tin sản phẩm.
+3. **Resource2**:  
+   - Mục đích: Quản lý đơn hàng.  
+   - Chức năng chính:
+     - Xác thực **Bearer Token**: Mọi yêu cầu phải kèm **Bearer Token**, nếu không sẽ trả về **401 Unauthorized**
+     - Cung cấp các API để thêm, sửa, xóa, và truy xuất thông tin đơn hàng.
 
 **Quy trình hoạt động tổng quan**:  
 - Người dùng đăng nhập vào `AuthorizationServer` để nhận **JWT Token**.  
@@ -30,8 +35,9 @@ Hệ thống bao gồm 2 dự án chính:
 2. Chạy file script SQL được cung cấp trong dự án để tạo cơ sở dữ liệu và bảng.
 
 ### Bước 2: Cập nhật chuỗi kết nối
-1. Mở file `appsettings.json` trong hai dự án:
+1. Mở file `appsettings.json` trong các dự án:
    - **AuthorizationServer**
+   - **Resource1**
    - **Resource2**
 2. Tìm mục `"ConnectionStrings"` và chỉnh sửa chuỗi kết nối thành thông tin server SQL trên máy tính của bạn.  
    Ví dụ:
@@ -44,7 +50,7 @@ Hệ thống bao gồm 2 dự án chính:
 2. Đăng nhập bằng **email** và **password** để lấy **JWT token**.
 
 ### Bước 4: Sử dụng token để xác thực
-1. Chạy **Resource2**
+1. Chạy các file **Resource**
 2. Thêm **Bearer Token** vào mục `Authorize`.
    ```text
    Bearer <token>
