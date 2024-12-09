@@ -14,7 +14,7 @@ Hệ thống bao gồm 2 dự án chính:
      - Tạo và trả về **Bearer Token** để sử dụng trong các API khác.
 
 2. **Resource2**:  
-   - Mục đích: Quản lý tài nguyên (Quản lý đơn hàng và Quản lý mặt hàng trong đơn hàng).  
+   - Mục đích: Quản lý tài nguyên (Quản lý đơn hàng).  
    - Chức năng chính:
      - Xác thực **Bearer Token**: Mọi yêu cầu phải kèm **Bearer Token**, nếu không sẽ trả về **401 Unauthorized**
      - Cung cấp các API để thêm, sửa, xóa, và truy xuất thông tin tài nguyên.
