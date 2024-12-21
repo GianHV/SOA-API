@@ -1,0 +1,78 @@
+{
+  "products": [
+    {
+      "id": "1",
+      "name": "Điện thoại",
+      "price": 5000000,
+      "stock": 20
+    },
+    {
+      "id": "2",
+      "name": "Laptop",
+      "price": 15000000,
+      "stock": 10
+    },
+    {
+      "id": "3",
+      "name": "Tai nghe",
+      "price": 800000,
+      "stock": 50
+    }
+  ],
+  "orders": [
+    {
+      "id": "90b9",
+      "customer_name": "t",
+      "customer_email": "f@f.com",
+      "items": [
+        {
+          "product_id": "1",
+          "quantity": 1,
+          "unit_price": 5000000
+        },
+        {
+          "product_id": "2",
+          "quantity": 1,
+          "unit_price": 15000000
+        },
+        {
+          "product_id": "3",
+          "quantity": 2,
+          "unit_price": 800000
+        }
+      ]
+    },
+    {
+      "id": "713f",
+      "customer_name": "x",
+      "customer_email": "x@n.c",
+      "items": []
+    },
+    {
+      "id": "077a",
+      "customer_name": "s",
+      "customer_email": "D@d.c",
+      "items": []
+    },
+    {
+      "id": "b6be",
+      "customer_name": "yy",
+      "customer_email": "i@m.om",
+      "items": []
+    },
+    {
+      "id": "ffb5",
+      "customer_name": "",
+      "customer_email": "",
+      "items": []
+    },
+    {
+      "id": "49c8",
+      "customer_name": "",
+      "customer_email": "",
+      "items": []
+    }
+  ],
+  "orders_reports": [],
+  "products_reports": []
+}
