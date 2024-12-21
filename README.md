@@ -1,4 +1,4 @@
-﻿# Hướng dẫn chạy dự án
+﻿# Hướng dẫn chạy dự án BE
 
 ## Yêu cầu hệ thống
 
@@ -61,4 +61,35 @@ Hệ thống bao gồm 4 dự án chính:
    ```text
    Bearer <token>
    ```
-### Bước 5: Thực hiện thao tác với API
+### Bước 5: Thực hiện thao tác với API<br>
+
+# Hướng dẫn chạy dự án FE
+
+ ## Yêu cầu hệ thống
+
+- **Node.js**: Phiên bản khuyến nghị: >= 20.x.
+- **npm**: Phiên bản khuyến nghị: >= 10.x.
+
+ ## Các bước chạy dự án
+
+### 1. Cd vào folder chứa source FE
+ ```
+cd sourceFe
+```
+
+### 2. Cài đặt các dependency
+ ```
+npm install
+```
+
+### 3. Chạy dự án
+ ```
+npm run serve
+```
+### 4. Truy cập ứng dụng
+ ```
+http://localhost:8080
+```
+Note: Port có thể thay đổi tuỳ vào port default hiện tại đang có ứng dụng khác sử dụng hay không.
+
+
